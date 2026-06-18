@@ -1,0 +1,168 @@
+<div class="d2e-activity-board">
+
+  <!-- Page Header -->
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Activity Board</h1>
+      <p class="d2e-subtitle">Track and manage active referral pipelines and tasks.</p>
+    </div>
+    <div class="d2e-page-header__right">
+      <div class="d2e-view-toggle">
+        <button class="d2e-view-toggle__btn" [class.active]="viewMode === 'board'" (click)="setView('board')">
+          <span class="material-symbols-outlined">grid_view</span> Board View
+        </button>
+        <button class="d2e-view-toggle__btn" [class.active]="viewMode === 'grid'" (click)="setView('grid')">
+          <span class="material-symbols-outlined">list</span> Grid View
+        </button>
+      </div>
+      <label class="d2e-checkbox-label">
+        <input type="checkbox" [(ngModel)]="showArchives" class="d2e-checkbox" />
+        <span>Show Archives</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Progress Tabs + Search Bar -->
+  <div class="d2e-toolbar">
+    <div class="d2e-chevron-tabs">
+      @for (tab of tabs; track tab; let i = $index) {
+      <button class="d2e-chevron-tab" [class.first]="i === 0" [class.active]="activeTab === i" [attr.data-index]="i"
+        (click)="setTab(i)">
+        {{ tab }}
+      </button>
+      }
+    </div>
+    <div class="d2e-toolbar__actions" style="margin-right: 39px;">
+      <div class="d2e-search-box">
+        <span class="material-symbols-outlined d2e-search-box__icon">search</span>
+        <input type="text" placeholder="Select Client" [(ngModel)]="searchClient" class="d2e-search-box__input" />
+      </div>
+      <!-- <button class="d2e-btn d2e-btn--primary">Send Intake</button> -->
+      <!-- <button class="d2e-btn d2e-btn--outline">Add</button> -->
+    </div>
+  </div>
+
+  <!-- Board / Grid Layout -->
+  <div class="d2e-board-layout">
+
+    @if (viewMode === 'board') {
+    <!-- Kanban Columns -->
+    <div class="d2e-kanban" cdkDropListGroup>
+      @for (col of columns; track col.name) {
+      <div class="d2e-kanban-col">
+        <div class="d2e-kanban-col__header">
+          <div class="d2e-kanban-col__title">
+            <h3>{{ col.name }}</h3>
+            <span class="d2e-badge">{{ col.count }}</span>
+          </div>
+          <button class="d2e-icon-btn" matTooltip="Options">
+            <span class="material-symbols-outlined">more_horiz</span>
+          </button>
+        </div>
+
+        <div class="d2e-kanban-col__body"
+             cdkDropList
+             [cdkDropListData]="col.cards"
+             (cdkDropListDropped)="drop($event)">
+          @if (col.cards.length === 0) {
+          <div class="d2e-kanban-empty">
+            <p>No items here</p>
+          </div>
+          }
+          @for (card of col.cards; track card.title) {
+          <div class="d2e-kanban-card" cdkDrag 
+               [ngClass]="{
+                 'd2e-kanban-card--priority-high': card.priority === 'high',
+                 'd2e-kanban-card--priority-medium': card.priority === 'medium',
+                 'd2e-kanban-card--priority-low': card.priority === 'low'
+               }">
+            <div class="d2e-kanban-card__header">
+              <h4 class="d2e-kanban-card__title">{{ card.title }}</h4>
+              <button class="d2e-icon-btn-sm">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+            </div>
+            <div class="d2e-kanban-card__footer">
+              @if (card.priority !== 'none') {
+              <span class="material-symbols-outlined d2e-flag-icon"
+                    [ngClass]="{
+                      'd2e-flag-icon--high': card.priority === 'high',
+                      'd2e-flag-icon--medium': card.priority === 'medium',
+                      'd2e-flag-icon--low': card.priority === 'low'
+                    }">flag</span>
+              }
+              @if (card.tag) {
+              <span class="d2e-tag">{{ card.tag }}</span>
+              }
+              @if (card.assignees.length > 0) {
+              <div class="d2e-assignees">
+                @for (a of card.assignees; track a) {
+                <div class="d2e-avatar" [matTooltip]="a">{{ a }}</div>
+                }
+              </div>
+              }
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    @if (viewMode === 'grid') {
+    <!-- Grid View (Table) -->
+    <div class="d2e-grid-view">
+      <div class="d2e-table-wrap">
+        <table class="d2e-table d2e-table--striped">
+          <thead>
+            <tr>
+              <th>Referral Phase</th>
+              <th>Task Title</th>
+              <th>Priority</th>
+              <th>Tags</th>
+              <th>Assignees</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (col of columns; track col.name) {
+            @for (card of col.cards; track card.title) {
+            <tr>
+              <td style="font-weight: 600">{{ col.name }}</td>
+              <td>{{ card.title }}</td>
+              <td>
+                @if (card.priority === 'high') {
+                <span style="color: var(--d2e-error); font-weight: bold; display: flex; align-items: center; gap: 4px;">
+                  <span class="material-symbols-outlined" style="font-size:16px;">flag</span> High
+                </span>
+                } @else {
+                <span style="opacity: 0.6; text-transform: capitalize;">{{ card.priority }}</span>
+                }
+              </td>
+              <td>
+                @if (card.tag) {
+                <span class="d2e-tag">{{ card.tag }}</span>
+                }
+              </td>
+              <td>
+                @if (card.assignees.length > 0) {
+                <div class="d2e-assignees" style="margin: 0; justify-content: flex-start;">
+                  @for (a of card.assignees; track a) {
+                  <div class="d2e-avatar">{{ a }}</div>
+                  }
+                </div>
+                } @else {
+                <span style="opacity: 0.5;">Unassigned</span>
+                }
+              </td>
+            </tr>
+            }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    }
+
+  </div>
+</div>

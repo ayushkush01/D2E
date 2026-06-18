@@ -1,0 +1,704 @@
+<div class="d2e-referral-page">
+  <!-- Top Header -->
+  <header class="d2e-ref-header">
+    <div class="d2e-ref-header__left">
+      <!-- <img [src]="patient.avatar" alt="Patient Avatar" class="d2e-ref-avatar"> -->
+      <div class="d2e-ref-info">
+        <div class="d2e-ref-info__top">
+          <h1 class="d2e-ref-name">{{ patient.name }}</h1>
+          @for (tag of patient.tags; track tag.label) {
+          <span class="d2e-tag" [ngClass]="tag.class">{{ tag.label }}</span>
+          }
+        </div>
+        <div class="d2e-ref-info__bottom">
+          <span class="d2e-meta-item"><strong>MRN:</strong> {{ patient.mrn }}</span>
+          <span class="d2e-meta-item"><strong>DOB:</strong> {{ patient.dob }}</span>
+          <span class="d2e-meta-item"><strong>Gender:</strong> {{ patient.gender }}</span>
+          <div class="d2e-meta-divider"></div>
+          <span class="d2e-meta-item d2e-meta-item--icon">
+            <span class="material-symbols-outlined icon">location_on</span> {{ patient.location }}
+          </span>
+          <span class="d2e-meta-item d2e-meta-item--icon">
+            <span class="material-symbols-outlined icon">call</span> {{ patient.phone }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="d2e-ref-header__right">
+      <button class="d2e-icon-btn-outline"><span class="material-symbols-outlined">print</span></button>
+      <button class="d2e-icon-btn-outline"><span class="material-symbols-outlined">share</span></button>
+      <button class="d2e-btn d2e-btn--primary">
+        <span class="material-symbols-outlined">edit</span> Edit Record
+      </button>
+    </div>
+  </header>
+
+  <!-- Tabs Navigation -->
+  <div class="d2e-ref-tabs-container">
+    <div class="d2e-ref-tabs">
+      <button class="d2e-ref-tab" [class.active]="activeTab === 'Overview'"
+        (click)="setTab('Overview')">Overview</button>
+      <button class="d2e-ref-tab" [class.active]="activeTab === 'Plan of Care'" (click)="setTab('Plan of Care')">Plan of
+        Care (2)</button>
+      <button class="d2e-ref-tab" [class.active]="activeTab === 'Appointments'"
+        (click)="setTab('Appointments')">Appointments (3)</button>
+      <button class="d2e-ref-tab" [class.active]="activeTab === 'Notes'" (click)="setTab('Notes')">Notes (2)</button>
+      <button class="d2e-ref-tab" [class.active]="activeTab === 'Finance'" (click)="setTab('Finance')">Finance</button>
+      <button class="d2e-ref-tab" [class.active]="activeTab === 'Documents'" (click)="setTab('Documents')">Documents
+        (2)</button>
+    </div>
+  </div>
+
+  <!-- Main Body Content -->
+  <div class="d2e-ref-body">
+
+    @if (activeTab === 'Overview') {
+    <!-- Left Column (Main Data) -->
+    <div class="d2e-ref-main">
+
+      <!-- Complete Clinical Profile Card -->
+      <div class="d2e-card d2e-clinical-card">
+        <div class="d2e-card__header">
+          <h2 class="d2e-card__title">Complete Clinical Profile</h2>
+          <span class="d2e-card__meta">Last updated: 2h ago</span>
+        </div>
+
+        <div class="d2e-clinical-grid">
+          <!-- Diagnosis -->
+          <div class="d2e-clinical-col">
+            <h4 class="d2e-clinical-heading">DIAGNOSIS</h4>
+            <div class="d2e-data-group">
+              <span class="d2e-data-label">Primary Condition</span>
+              <span class="d2e-data-value d2e-data-value--bold">{{ clinicalProfile.diagnosis.primary }}</span>
+            </div>
+            <div class="d2e-data-group">
+              <span class="d2e-data-label">Secondary Factors</span>
+              <span class="d2e-data-value d2e-data-value--bold">{{ clinicalProfile.diagnosis.secondary }}</span>
+            </div>
+          </div>
+
+          <!-- Coverage -->
+          <div class="d2e-clinical-col">
+            <h4 class="d2e-clinical-heading">COVERAGE</h4>
+            <div class="d2e-data-group">
+              <span class="d2e-data-label">Primary Insurance</span>
+              <span class="d2e-data-value d2e-data-value--bold">{{ clinicalProfile.coverage.primary }}</span>
+            </div>
+            <div class="d2e-data-group">
+              <span class="d2e-data-label">Policy Number</span>
+              <span class="d2e-data-value d2e-data-value--bold">{{ clinicalProfile.coverage.policy }}</span>
+            </div>
+          </div>
+
+          <!-- Recent Vitals -->
+          <div class="d2e-clinical-col">
+            <h4 class="d2e-clinical-heading">RECENT VITALS</h4>
+            <div class="d2e-vitals-grid">
+              <div class="d2e-vital-box">
+                <span class="d2e-vital-label">BP</span>
+                <div class="d2e-vital-val">
+                  {{ clinicalProfile.vitals.bp.value }}
+                  @if (clinicalProfile.vitals.bp.trend === 'up') {
+                  <span class="material-symbols-outlined d2e-trend-up">arrow_upward</span>
+                  }
+                </div>
+              </div>
+              <div class="d2e-vital-box">
+                <span class="d2e-vital-label">SpO2</span>
+                <div class="d2e-vital-val">{{ clinicalProfile.vitals.spo2.value }}</div>
+              </div>
+              <div class="d2e-vital-box">
+                <span class="d2e-vital-label">HR</span>
+                <div class="d2e-vital-val">{{ clinicalProfile.vitals.hr.value }}</div>
+              </div>
+              <div class="d2e-vital-box">
+                <span class="d2e-vital-label">BMI</span>
+                <div class="d2e-vital-val">{{ clinicalProfile.vitals.bmi.value }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="d2e-card-divider">
+
+        <!-- Care Team Info -->
+        <div class="d2e-team-grid">
+          <div class="d2e-data-group">
+            <span class="d2e-data-label d2e-data-label--caps">ASSIGNED PCP</span>
+            <span class="d2e-data-value">{{ clinicalProfile.team.pcp }}</span>
+          </div>
+          <div class="d2e-data-group">
+            <span class="d2e-data-label d2e-data-label--caps">REFERRING CLINIC</span>
+            <span class="d2e-data-value">{{ clinicalProfile.team.clinic }}</span>
+          </div>
+          <div class="d2e-data-group">
+            <span class="d2e-data-label d2e-data-label--caps">CARE MANAGER</span>
+            <span class="d2e-data-value">{{ clinicalProfile.team.manager }}</span>
+          </div>
+          <div class="d2e-data-group">
+            <span class="d2e-data-label d2e-data-label--caps">LANGUAGE</span>
+            <span class="d2e-data-value">{{ clinicalProfile.team.language }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Referral Milestones Card -->
+      <div class="d2e-card d2e-milestones-card">
+        <div class="d2e-card__header" style="margin-bottom: 24px;">
+          <h2 class="d2e-card__title">Referral Milestones</h2>
+        </div>
+
+        <div class="d2e-timeline">
+          @for (ms of milestones; track ms.title) {
+          <div class="d2e-timeline-item" [ngClass]="'status-' + ms.status">
+            <div class="d2e-timeline-icon-col">
+              <div class="d2e-timeline-icon">
+                <span class="material-symbols-outlined">{{ ms.icon }}</span>
+              </div>
+              <!-- Line connecting to next item -->
+              <div class="d2e-timeline-line"></div>
+            </div>
+            <div class="d2e-timeline-content">
+              <div class="d2e-timeline-header">
+                <h4 class="d2e-timeline-title">{{ ms.title }}</h4>
+                <span class="d2e-timeline-time">{{ ms.time }}</span>
+              </div>
+              <p class="d2e-timeline-desc">{{ ms.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="d2e-ref-sidebar">
+
+      <!-- Sub Navigation -->
+      <div class="d2e-subnav-card">
+        <h4 class="d2e-subnav-heading">SUB-NAVIGATION</h4>
+        <nav class="d2e-subnav-list">
+          @for (nav of subNavigation; track nav.label) {
+          <a href="javascript:void(0)" class="d2e-subnav-item" [class.active]="nav.active">
+            <div class="d2e-subnav-left">
+              <span class="material-symbols-outlined icon">{{ nav.icon }}</span>
+              <span class="label">{{ nav.label }}</span>
+            </div>
+            <span class="material-symbols-outlined chevron">chevron_right</span>
+          </a>
+          }
+        </nav>
+      </div>
+
+      <!-- Clinical Alerts -->
+      <div class="d2e-alerts-card">
+        <div class="d2e-alerts-header">
+          <span class="material-symbols-outlined icon">warning</span>
+          <span class="title">CLINICAL ALERTS</span>
+        </div>
+        <ul class="d2e-alerts-list">
+          @for (alert of alerts; track alert) {
+          <li>{{ alert }}</li>
+          }
+        </ul>
+      </div>
+
+      <!-- Engagement Score Placeholder -->
+      <div class="d2e-card d2e-engagement-card">
+        <div class="d2e-card__header">
+          <h4 class="d2e-clinical-heading">ENGAGEMENT SCORE</h4>
+        </div>
+        <div
+          style="height: 120px; display: flex; align-items: center; justify-content: center; color: var(--d2e-on-surface-variant); background: var(--d2e-surface-container-lowest); border-radius: 8px; margin-top: 16px;">
+          Chart Data Unavailable
+        </div>
+      </div>
+
+    </div>
+    }
+
+    <!-- PLAN OF CARE VIEW -->
+    @if (activeTab === 'Plan of Care') {
+    <div style="grid-column: 1 / -1; margin-top: 16px;">
+      <div class="view-top-bar">
+        <div class="left-actions">
+          <span style="font-size: 18px; font-weight: 600; color: #0f172a;">Total Budget: <span
+              style="color: #64748b;">$1,450.00</span></span>
+        </div>
+        <div class="right-actions">
+          <input type="text" class="modern-input" placeholder="Search by Keyword">
+          <button class="d2e-icon-btn-outline" style="height: 40px; width: 40px;"><span
+              class="material-symbols-outlined">refresh</span></button>
+          <button class="d2e-btn d2e-btn--outline" disabled><span class="material-symbols-outlined">block</span> Submit
+            for Approval</button>
+          <button class="d2e-btn d2e-btn--primary"><span class="material-symbols-outlined">add</span> Add Item</button>
+          <button class="d2e-btn d2e-btn--outline"><span class="material-symbols-outlined">arrow_back</span>
+            Back</button>
+        </div>
+      </div>
+
+      <div class="d2e-card d2e-card--full" style="background: white;">
+        <div class="d2e-card__header d2e-card__header--table">
+          <div class="d2e-card__title-group">
+            <h4 class="d2e-headline-md" style="margin: 0; font-size: 18px; font-weight: 600;">Procedures</h4>
+            <div class="d2e-chips">
+              <span class="d2e-chip d2e-chip--primary">2 Items</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d2e-table-wrap">
+          <table class="d2e-table d2e-table--striped">
+            <thead>
+              <tr>
+                <th>Actions</th>
+                <th>Status</th>
+                <th>Procedure ID</th>
+                <th>Hospital System</th>
+                <th>Hospital</th>
+                <th>Visit Type</th>
+                <th>Provider</th>
+                <th>Specialty</th>
+                <th>Procedures</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td><span class="badge-tag">Pending</span></td>
+                <td>PRC-10924</td>
+                <td>Mayo Clinic</td>
+                <td>St. Marys Hospital</td>
+                <td>Inpatient</td>
+                <td>Dr. Sarah Jenkins</td>
+                <td>Cardiology</td>
+                <td>Echocardiogram</td>
+                <td class="muted">Review required</td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td><span class="badge-tag" style="background: #dcfce7; color: #166534;">Approved</span></td>
+                <td>PRC-10925</td>
+                <td>Cleveland Clinic</td>
+                <td>Main Campus</td>
+                <td>Outpatient</td>
+                <td>Dr. Michael Chen</td>
+                <td>Orthopedics</td>
+                <td>MRI Scan</td>
+                <td class="muted">Approved by admin</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- FINANCE VIEW -->
+    @if (activeTab === 'Finance') {
+    <div style="grid-column: 1 / -1; margin-top: 16px;">
+      <div class="view-top-bar">
+        <div class="left-actions">
+          <button class="d2e-btn d2e-btn--primary">Billing</button>
+          <button class="d2e-btn d2e-btn--outline">Collection</button>
+        </div>
+        <div class="right-actions">
+          <input type="text" class="modern-input" placeholder="Search by Keyword">
+          <button class="d2e-icon-btn-outline" style="height: 40px; width: 40px;"><span
+              class="material-symbols-outlined">file_download</span></button>
+          <button class="d2e-btn d2e-btn--primary"><span class="material-symbols-outlined">add</span> Add Bill</button>
+        </div>
+      </div>
+
+      <div class="d2e-card d2e-card--full" style="background: white;">
+        <div class="d2e-card__header d2e-card__header--table">
+          <div class="d2e-card__title-group">
+            <h4 class="d2e-headline-md" style="margin: 0; font-size: 18px; font-weight: 600;">Billing Records</h4>
+            <div class="d2e-chips">
+              <span class="d2e-chip d2e-chip--primary">3 Items</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d2e-table-wrap">
+          <table class="d2e-table d2e-table--striped">
+            <thead>
+              <tr>
+                <th>Actions</th>
+                <th>Provider / Facility</th>
+                <th>Type</th>
+                <th>Billing Ref</th>
+                <th>CPT Code</th>
+                <th>Billed Amount</th>
+                <th>Paid Amount</th>
+                <th>Payment Ref</th>
+                <th>Service Date</th>
+                <th>Billing Date</th>
+                <th>Paid Date</th>
+                <th>Phase</th>
+                <th>Stage</th>
+                <th>PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td>Mayo Clinic</td>
+                <td>Facility</td>
+                <td>BIL-5501</td>
+                <td>99214</td>
+                <td style="font-weight: 600;">$250.00</td>
+                <td>$0.00</td>
+                <td class="muted">-</td>
+                <td class="muted">06/10/2026</td>
+                <td class="muted">06/11/2026</td>
+                <td class="muted">-</td>
+                <td><span class="badge-tag" style="background: #f1f5f9; color: #475569;">Initial</span></td>
+                <td>Pending Review</td>
+                <td><span class="material-symbols-outlined" style="color: #ef4444;">picture_as_pdf</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td>Dr. Sarah Jenkins</td>
+                <td>Professional</td>
+                <td>BIL-5502</td>
+                <td>99213</td>
+                <td style="font-weight: 600;">$150.00</td>
+                <td style="color: #10b981; font-weight: 600;">$150.00</td>
+                <td class="muted">PAY-8823</td>
+                <td class="muted">06/01/2026</td>
+                <td class="muted">06/02/2026</td>
+                <td class="muted">06/15/2026</td>
+                <td><span class="badge-tag" style="background: #dcfce7; color: #166534;">Completed</span></td>
+                <td>Paid</td>
+                <td><span class="material-symbols-outlined" style="color: #ef4444;">picture_as_pdf</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td>Quest Diagnostics</td>
+                <td>Ancillary</td>
+                <td>BIL-5503</td>
+                <td>80053</td>
+                <td style="font-weight: 600;">$85.00</td>
+                <td style="color: #10b981; font-weight: 600;">$85.00</td>
+                <td class="muted">PAY-8824</td>
+                <td class="muted">05/28/2026</td>
+                <td class="muted">05/29/2026</td>
+                <td class="muted">06/05/2026</td>
+                <td><span class="badge-tag" style="background: #dcfce7; color: #166534;">Completed</span></td>
+                <td>Paid</td>
+                <td><span class="material-symbols-outlined" style="color: #ef4444;">picture_as_pdf</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- DOCUMENTS VIEW -->
+    @if (activeTab === 'Documents') {
+    <div style="grid-column: 1 / -1; margin-top: 16px;">
+      <div class="view-top-bar" style="justify-content: flex-end;">
+        <div class="right-actions">
+          <input type="text" class="modern-input" placeholder="Search by Keyword">
+          <button class="d2e-icon-btn-outline" style="height: 40px; width: 40px;"><span
+              class="material-symbols-outlined">refresh</span></button>
+          <div class="d2e-view-toggle">
+            <button class="d2e-view-toggle__btn active">
+              <span class="material-symbols-outlined">grid_view</span> Board View
+            </button>
+            <button class="d2e-view-toggle__btn">
+              <span class="material-symbols-outlined">list</span> Grid View
+            </button>
+          </div>
+          <button class="d2e-btn d2e-btn--outline"><span class="material-symbols-outlined">filter_list</span>
+            Filter</button>
+        </div>
+      </div>
+
+      <div class="doc-grid">
+        <div class="doc-card doc-card-add">
+          <div
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+            <span class="material-symbols-outlined"
+              style="font-size: 40px; margin-bottom: 12px; color: #94a3b8;">note_add</span>
+            <span style="font-weight: 600; font-size: 14px; color: #64748b;">Add Document Record</span>
+          </div>
+        </div>
+        <div class="doc-card">
+          <div class="actions">
+            <span class="material-symbols-outlined">visibility</span>
+            <span class="material-symbols-outlined delete">delete</span>
+            <span class="material-symbols-outlined">edit</span>
+          </div>
+          <span class="material-symbols-outlined doc-icon">folder</span>
+          <p style="margin: 0; font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">Jacob</p>
+          <p style="margin: 8px 0 4px; font-weight: 700; color: #0f172a; font-size: 16px;">Medical Record</p>
+          <p style="margin: 0; font-size: 13px; color: #64748b;">Lab Results - Q2</p>
+          <p style="margin: 16px 0 0; font-size: 12px; color: #94a3b8;">admin | 05/29/2026</p>
+        </div>
+        <div class="doc-card">
+          <div class="actions">
+            <span class="material-symbols-outlined">visibility</span>
+            <span class="material-symbols-outlined delete">delete</span>
+            <span class="material-symbols-outlined">edit</span>
+          </div>
+          <span class="material-symbols-outlined doc-icon" style="color: #10b981;">description</span>
+          <p style="margin: 0; font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">Jacob</p>
+          <p style="margin: 8px 0 4px; font-weight: 700; color: #0f172a; font-size: 16px;">Intake Form</p>
+          <p style="margin: 0; font-size: 13px; color: #64748b;">Signed PDF copy</p>
+          <p style="margin: 16px 0 0; font-size: 12px; color: #94a3b8;">admin | 06/15/2026</p>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- NOTES VIEW -->
+    @if (activeTab === 'Notes') {
+    <div style="grid-column: 1 / -1; margin-top: 16px;">
+      <div class="note-input-area">
+        <h3 style="margin: 0 0 20px; font-size: 16px; font-weight: 600; color: #0f172a;">Add Note</h3>
+        <div style="display: flex; gap: 16px; align-items: stretch; width: 100%;">
+          <select class="modern-select" style="max-width: 200px; padding: 0 16px; height: 44px; margin: 0;">
+            <option>Select Tag*</option>
+            <option>Clinical</option>
+            <option>Administrative</option>
+          </select>
+          <input type="text" class="modern-input"
+            style="flex: 1; padding: 0 16px; height: 44px; margin: 0; box-sizing: border-box;"
+            placeholder="Enter your note here...">
+          <button class="d2e-icon-btn-outline"
+            style="height: 44px; width: 44px; border: none; background: transparent; flex-shrink: 0;"><span
+              class="material-symbols-outlined">attach_file</span></button>
+          <button class="d2e-btn d2e-btn--primary"
+            style="height: 44px; width: 44px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;"><span
+              class="material-symbols-outlined" style="margin: 0;">send</span></button>
+        </div>
+      </div>
+
+      <div class="ai-overview">
+        <span class="material-symbols-outlined">auto_awesome</span> AI Overview highlights key takeaways from recent
+        notes.
+      </div>
+
+      <div class="d2e-card d2e-card--full" style="background: white;">
+        <div class="d2e-table-wrap">
+          <table class="d2e-table d2e-table--striped">
+            <thead>
+              <tr>
+                <th>Actions</th>
+                <th>Date</th>
+                <th>Posted By</th>
+                <th>Message</th>
+                <th>Document</th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td class="muted">06/17/2026 02:42 PM</td>
+                <td>admin</td>
+                <td style="max-width: 350px; line-height: 1.5;">Patient reported mild discomfort during physical
+                  therapy. Adjusted exercises accordingly.</td>
+                <td style="text-align: center;" class="muted">-</td>
+                <td><span class="badge-tag">Clinical</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td class="muted">06/15/2026 10:15 AM</td>
+                <td>admin</td>
+                <td style="max-width: 350px; line-height: 1.5;">Insurance verification completed. Ready for billing
+                  submission.</td>
+                <td style="text-align: center;"><span class="material-symbols-outlined"
+                    style="color: #3b82f6; font-size: 18px;">description</span></td>
+                <td><span class="badge-tag" style="background: #fef3c7; color: #d97706;">Administrative</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- APPOINTMENTS VIEW -->
+    @if (activeTab === 'Appointments') {
+    <div style="grid-column: 1 / -1; margin-top: 16px;">
+      <div class="view-top-bar" style="justify-content: flex-end;">
+        <div class="right-actions">
+          <input type="text" class="modern-input" placeholder="Search by Keyword">
+          <button class="d2e-icon-btn-outline" style="height: 40px; width: 40px;"><span
+              class="material-symbols-outlined">refresh</span></button>
+          <button class="d2e-btn d2e-btn--primary"><span class="material-symbols-outlined">add</span> Add
+            Appointment</button>
+          <button class="d2e-btn d2e-btn--outline"><span class="material-symbols-outlined">arrow_back</span>
+            Back</button>
+        </div>
+      </div>
+
+      <div class="d2e-card d2e-card--full" style="background: white;">
+        <div class="d2e-card__header d2e-card__header--table">
+          <div class="d2e-card__title-group">
+            <h4 class="d2e-headline-md" style="margin: 0; font-size: 18px; font-weight: 600;">Upcoming Appointments</h4>
+            <div class="d2e-chips">
+              <span class="d2e-chip d2e-chip--primary">3 Items</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d2e-table-wrap">
+          <table class="d2e-table d2e-table--striped">
+            <thead>
+              <tr>
+                <th>Actions</th>
+                <th>Appointment ID</th>
+                <th>Patient ID</th>
+                <th>Patient</th>
+                <th>Provider</th>
+                <th>Hospital</th>
+                <th>CPT Code</th>
+                <th>Specialty</th>
+                <th>Procedure</th>
+                <th>Visit Type</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Phase</th>
+                <th>Stage</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td>APT-1002</td>
+                <td>10000047</td>
+                <td>Jacob</td>
+                <td>Dr. Sarah Jenkins</td>
+                <td>Mayo Clinic</td>
+                <td class="muted">99213</td>
+                <td>Cardiology</td>
+                <td>Routine Check</td>
+                <td>Outpatient</td>
+                <td class="muted">06/20/2026</td>
+                <td class="muted">10:00 AM</td>
+                <td><span class="badge-tag">Pre-Visit</span></td>
+                <td>Confirmed</td>
+                <td class="muted">Fasting required</td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td>APT-1003</td>
+                <td>10000047</td>
+                <td>Jacob</td>
+                <td>Dr. Michael Chen</td>
+                <td>Cleveland Clinic</td>
+                <td class="muted">99214</td>
+                <td>Orthopedics</td>
+                <td>Follow up</td>
+                <td>Outpatient</td>
+                <td class="muted">06/25/2026</td>
+                <td class="muted">02:30 PM</td>
+                <td><span class="badge-tag">Pre-Visit</span></td>
+                <td>Scheduled</td>
+                <td class="muted">Bring X-Rays</td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="d2e-icon-btn" title="Edit"><span
+                        class="material-symbols-outlined">edit</span></button>
+                    <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span
+                        class="material-symbols-outlined">delete</span></button>
+                  </div>
+                </td>
+                <td>APT-1004</td>
+                <td>10000047</td>
+                <td>Jacob</td>
+                <td>Dr. Alan Mercer</td>
+                <td>Northshore Nephrology</td>
+                <td class="muted">99215</td>
+                <td>Nephrology</td>
+                <td>Consultation</td>
+                <td>Inpatient</td>
+                <td class="muted">07/02/2026</td>
+                <td class="muted">09:15 AM</td>
+                <td><span class="badge-tag">Pre-Visit</span></td>
+                <td>Scheduled</td>
+                <td class="muted">Check labs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+  </div>
+</div>

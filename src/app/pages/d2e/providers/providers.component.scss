@@ -1,0 +1,247 @@
+// Common Grid Page Styles
+.d2e-grid-page {
+  padding: 24px;
+  font-family: var(--d2e-font, 'Inter', sans-serif);
+  background: var(--d2e-surface-container-lowest, #f8fafc);
+  min-height: 100vh;
+}
+
+.d2e-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  &__left {
+    .d2e-headline-lg {
+      margin: 0 0 4px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--d2e-on-surface);
+    }
+    .d2e-subtitle {
+      margin: 0;
+      color: var(--d2e-on-surface-variant);
+      font-size: 14px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.d2e-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--d2e-primary, #0ea5e9);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--d2e-primary-container, #0284c7);
+  }
+}
+
+.d2e-grid-container {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--d2e-outline-variant, #e2e8f0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+// ─── Shared Card & Table Styles from Alerts ───
+.d2e-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+
+    &--table {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  }
+  &__title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h4 { margin: 0; font-size: 18px; font-weight: 700; color: #0f172a; }
+  }
+}
+
+// Tables
+.d2e-table-wrap {
+  overflow-x: auto;
+  flex: 1;
+}
+
+.d2e-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  thead tr {
+    background: #f8fafc;
+  }
+  th {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+    text-align: left;
+    &.center { text-align: center; }
+  }
+  td {
+    padding: 12px 16px;
+    color: #334155;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+    &.center { text-align: center; }
+    &.muted { color: #64748b; }
+    &.bold { font-weight: 600; }
+    &.truncate { max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+  }
+
+  tbody tr {
+    transition: background 0.12s;
+    &:hover { background: #f8fafc; }
+    &:last-child td { border-bottom: none; }
+  }
+
+  .sort-icon { font-size: 14px; vertical-align: middle; }
+}
+
+// Status chips
+.d2e-status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #64748b;
+
+  &--active {
+    background: #dcfce7;
+    color: #15803d;
+  }
+}
+
+.d2e-patient-name {
+  font-weight: 600;
+  color: #0ea5e9 !important;
+  cursor: pointer;
+  &:hover { text-decoration: underline; }
+}
+
+.d2e-error { color: #ef4444 !important; }
+
+// Chips
+.d2e-chips { display: flex; gap: 6px; }
+.d2e-chip {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  &--primary { background: #e0f2fe; color: #0ea5e9; }
+  &--neutral { background: #f1f5f9; color: #64748b; }
+}
+
+// Pagination
+.d2e-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.d2e-page-btn {
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+  &:hover:not(:disabled) { background: #e2e8f0; }
+  &:disabled { opacity: 0.4; cursor: default; }
+  .material-symbols-outlined { font-size: 18px; color: #0f172a; }
+}
+.d2e-page-label {
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  background: white;
+  color: #0f172a;
+}
+
+.d2e-link-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0ea5e9;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+.d2e-icon-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: #f1f5f9;
+    color: #0ea5e9;
+  }
+  
+  &--delete:hover {
+    color: #ef4444;
+    background: #fee2e2;
+  }
+  
+  .material-symbols-outlined {
+    font-size: 18px;
+  }
+}

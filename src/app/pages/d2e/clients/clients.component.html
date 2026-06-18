@@ -1,0 +1,94 @@
+<div class="d2e-grid-page">
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Clients</h1>
+      <p class="d2e-subtitle">Manage active clients, contracts, and partnerships.</p>
+    </div>
+  </div>
+
+  <div class="table-toolbar">
+    <div class="search-wrap">
+      <input type="text" placeholder="Search by Keyword">
+      <span class="material-symbols-outlined">search</span>
+    </div>
+    <button class="black-btn" title="Refresh">
+      <span class="material-symbols-outlined">refresh</span>
+    </button>
+    <div class="d2e-view-toggle">
+      <button class="d2e-view-toggle__btn active">
+        <span class="material-symbols-outlined">grid_view</span> Board View
+      </button>
+      <button class="d2e-view-toggle__btn">
+        <span class="material-symbols-outlined">list</span> Grid View
+      </button>
+    </div>
+    <button class="black-btn" title="Download">
+      <span class="material-symbols-outlined">download</span>
+    </button>
+    <button class="black-btn" title="Filter">
+      <span class="material-symbols-outlined">filter_list</span>
+    </button>
+    <button class="blue-btn">
+      <span class="material-symbols-outlined">add</span> Add Client
+    </button>
+  </div>
+  
+  <div class="d2e-card d2e-card--full" style="background: white;">
+    <div class="d2e-card__header d2e-card__header--table">
+      <div class="d2e-card__title-group">
+        <h4 class="d2e-headline-md" style="margin: 0; font-size: 18px; font-weight: 600;">Clients</h4>
+        <div class="d2e-chips">
+          <span class="d2e-chip d2e-chip--primary">{{ rows.length }} Total</span>
+        </div>
+      </div>
+      <div class="d2e-pagination">
+        <button class="d2e-page-btn" disabled>
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <span class="d2e-page-label">Page 1 of 1</span>
+        <button class="d2e-page-btn" disabled>
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="d2e-table-wrap">
+      <table class="d2e-table">
+        <thead>
+          <tr>
+            <th *ngFor="let col of columns">{{ col.name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <td>
+               <div style="display: flex; gap: 4px; justify-content: center;">
+                 <button class="d2e-icon-btn edit" title="Edit"><span class="material-symbols-outlined">edit</span></button>
+                 <button class="d2e-icon-btn delete" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+               </div>
+            </td>
+            <td>
+              <span class="d2e-status-chip" [class.d2e-status-chip--active]="row.status === 'Active'">
+                {{ row.status }}
+              </span>
+            </td>
+            <td class="d2e-patient-name">{{ row.clientName }}</td>
+            <td>{{ row.clientId }}</td>
+            <td class="center">{{ row.contracts }}</td>
+            <td>{{ row.contact }}</td>
+            <td class="muted truncate">{{ row.email }}</td>
+            <td class="muted">{{ row.workPhone }}</td>
+            <td class="muted">{{ row.zipCode }}</td>
+            <td class="muted">{{ row.cellNumber }}</td>
+            <td>{{ row.city }}</td>
+            <td>{{ row.state }}</td>
+            <td class="muted">{{ row.createdDate }}</td>
+            <td class="muted">{{ row.modifiedDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+
+</div>

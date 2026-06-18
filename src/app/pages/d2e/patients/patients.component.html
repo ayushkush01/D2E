@@ -1,0 +1,66 @@
+<div class="d2e-grid-page">
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Patients</h1>
+      <p class="d2e-subtitle">Manage patient records, demographics, and referrals.</p>
+    </div>
+    <div class="d2e-page-header__right">
+      <button class="d2e-btn-primary">
+        <span class="material-symbols-outlined">add</span> Add Patient
+      </button>
+    </div>
+  </div>
+  
+  <div class="d2e-card d2e-card--full" style="background: white;">
+    <div class="d2e-card__header d2e-card__header--table">
+      <div class="d2e-card__title-group">
+        <h4 class="d2e-headline-md" style="margin: 0; font-size: 18px; font-weight: 600;">Patients</h4>
+        <div class="d2e-chips">
+          <span class="d2e-chip d2e-chip--primary">{{ rows.length }} Total</span>
+        </div>
+      </div>
+      <div class="d2e-pagination">
+        <button class="d2e-page-btn" disabled>
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <span class="d2e-page-label">Page 1 of 1</span>
+        <button class="d2e-page-btn" disabled>
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="d2e-table-wrap">
+      <table class="d2e-table d2e-table--striped">
+        <thead>
+          <tr>
+            <th *ngFor="let col of columns">{{ col.name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows" class="d2e-table-row">
+            <td>
+               <div style="display: flex; gap: 4px;">
+                 <button class="d2e-icon-btn" title="View"><span class="material-symbols-outlined">visibility</span></button>
+                 <button class="d2e-icon-btn d2e-icon-btn--delete" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+               </div>
+            </td>
+            <td>{{ row.patientId }}</td>
+            <td class="d2e-patient-name">{{ row.patientName }}</td>
+            <td>{{ row.clientName }}</td>
+            <td class="muted">{{ row.referralFrom }}</td>
+            <td class="muted">{{ row.dob }}</td>
+            <td class="muted">{{ row.phone }}</td>
+            <td class="muted truncate">{{ row.email }}</td>
+            <td class="muted truncate">{{ row.address }}</td>
+            <td class="muted">{{ row.zipCode }}</td>
+            <td>{{ row.state }}</td>
+            <td>{{ row.city }}</td>
+            <td class="muted truncate">{{ row.summary }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,193 @@
+// Common Grid Page Styles
+.d2e-grid-page {
+  padding: 24px 40px;
+  font-family: var(--d2e-font, 'Inter', sans-serif);
+  background: var(--d2e-surface-container-lowest, #fff);
+  min-height: 100vh;
+}
+
+.d2e-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  &__left {
+    .d2e-headline-lg {
+      margin: 0 0 4px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--d2e-on-surface, #0f172a);
+    }
+    .d2e-subtitle {
+      margin: 0;
+      color: var(--d2e-on-surface-variant, #64748b);
+      font-size: 14px;
+    }
+  }
+}
+
+// ─── Modern Inputs ───
+.modern-input, .modern-select {
+  width: 100%;
+  box-sizing: border-box !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+  border: 1px solid var(--d2e-outline-variant);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: var(--d2e-font);
+  color: var(--d2e-on-surface);
+  background: white;
+  transition: all 0.2s;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+
+  &::placeholder {
+    color: #94a3b8;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--d2e-primary);
+    box-shadow: 0 0 0 3px rgba(0, 60, 144, 0.08);
+  }
+}
+
+// ─── Toolbar Button Utility ───
+.toolbar-btn {
+  box-sizing: border-box !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 16px;
+  
+  .material-symbols-outlined {
+    font-size: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+// ─── Toggle Switch ───
+.d2e-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: var(--d2e-primary);
+    }
+    &:checked + .slider:before {
+      transform: translateX(16px);
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+}
+
+// ─── Calendar Table Styles ───
+.d2e-table--calendar {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  th, td {
+    border: 1px solid var(--d2e-outline-variant);
+    padding: 12px;
+    vertical-align: middle;
+  }
+
+  th {
+    background: var(--d2e-surface-container-low);
+    color: var(--d2e-on-surface);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: none;
+    text-align: center;
+  }
+
+  td.muted {
+    color: var(--d2e-on-surface-variant);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  td.center {
+    text-align: center;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s;
+    &:hover { background-color: #f8fafc; }
+  }
+}
+
+.fw-bold { font-weight: 700; }
+
+// ─── Appointment Blocks ───
+.appt-block {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  text-align: left;
+  border-left: 3px solid transparent;
+
+  .appt-time {
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  
+  .appt-patient {
+    font-weight: 500;
+  }
+
+  &--info {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-left-color: #0284c7;
+  }
+
+  &--success {
+    background: #dcfce7;
+    color: #166534;
+    border-left-color: #15803d;
+  }
+
+  &--warning {
+    background: #fef3c7;
+    color: #92400e;
+    border-left-color: #b45309;
+  }
+}

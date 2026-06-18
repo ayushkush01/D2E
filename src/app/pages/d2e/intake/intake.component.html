@@ -1,0 +1,197 @@
+<div class="intake-page">
+
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Intake</h1>
+      <p class="d2e-subtitle">Create a new intake record.</p>
+    </div>
+  </div>
+
+  <!-- Client Information Section -->
+  <div class="d2e-card">
+    <div class="d2e-card__header">
+      <h3 class="d2e-headline-md">Client Information</h3>
+      <div class="d2e-page-header__actions">
+        <button class="d2e-btn d2e-btn--outline">
+          <span class="material-symbols-outlined">arrow_back</span> Back
+        </button>
+        <button class="d2e-btn d2e-btn--primary">
+          <span class="material-symbols-outlined">add</span> Add Referral Organization
+        </button>
+      </div>
+    </div>
+    <div class="d2e-card__body">
+      <div class="d2e-form-grid">
+        <div class="d2e-form-group">
+          <label>Referral Organization</label>
+          <div class="input-wrapper">
+            <select class="modern-select">
+              <option>Select Referral Organization</option>
+            </select>
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Referral from</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="Enter Referral from">
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Created Date</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="6/18/2026">
+            <span class="material-symbols-outlined calendar-icon">calendar_today</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Patient Information Section -->
+  <div class="d2e-card">
+    <div class="d2e-card__header">
+      <h3 class="d2e-headline-md">Patient Information</h3>
+    </div>
+    <div class="d2e-card__body">
+      <div class="d2e-form-grid">
+        <div class="d2e-form-group">
+          <label>Patient Name</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="Enter Patient Name">
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Address</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="Enter Address">
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Date of birth</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="MM-DD-YYYY">
+            <span class="material-symbols-outlined calendar-icon">calendar_today</span>
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>State</label>
+          <div class="input-wrapper">
+            <select class="modern-select">
+              <option>Select State</option>
+            </select>
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Phone Number</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="000 000 0000">
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>City</label>
+          <div class="input-wrapper">
+            <select class="modern-select">
+              <option>Select City</option>
+            </select>
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Email</label>
+          <div class="input-wrapper">
+            <input type="email" class="modern-input" placeholder="Enter Email">
+          </div>
+        </div>
+        <div class="d2e-form-group">
+          <label>Zipcode</label>
+          <div class="input-wrapper">
+            <input type="text" class="modern-input" placeholder="00000">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary of Medical Issue Section -->
+  <div class="d2e-card">
+    <div class="d2e-card__header">
+      <h3 class="d2e-headline-md">Summary of Medical Issue</h3>
+    </div>
+    <div class="d2e-card__body">
+      <textarea class="modern-textarea" placeholder="Enter detailed description of the medical issue..."></textarea>
+    </div>
+  </div>
+
+  <!-- CPT / DRG Codes Section -->
+  <div class="d2e-card">
+    <div class="d2e-card__header">
+      <h3 class="d2e-headline-md">CPT / DRG Codes</h3>
+      <button class="d2e-btn d2e-btn--primary" (click)="addCptRow()">
+        <span class="material-symbols-outlined">add</span> Add Code
+      </button>
+    </div>
+    <div class="d2e-table-wrap">
+      <table class="d2e-table d2e-table--striped">
+        <thead>
+          <tr>
+            <th style="width: 30%;">CPT / DRG Codes</th>
+            <th style="width: 40%;">Procedure Description</th>
+            <th class="center" style="width: 10%;">Actions</th>
+            <th style="width: 20%;">Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of cptRows">
+            <td><input type="text" class="modern-input" placeholder="Enter CPT / DRG"></td>
+            <td><input type="text" class="modern-input" placeholder="Enter description"></td>
+            <td class="center">
+              <button class="d2e-icon-btn save" title="Save"><span class="material-symbols-outlined">save</span></button>
+            </td>
+            <td>
+              <div class="remarks-text">Please enter the information and click on the save icon.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Documents Section -->
+  <div class="d2e-card">
+    <div class="d2e-card__header">
+      <h3 class="d2e-headline-md">Documents</h3>
+    </div>
+    <div class="d2e-table-wrap">
+      <table class="d2e-table d2e-table--striped">
+        <thead>
+          <tr>
+            <th style="width: 30%;">Document Title</th>
+            <th style="width: 35%;">Document Type</th>
+            <th class="center" style="width: 10%;">Upload</th>
+            <th class="center" style="width: 10%;">Actions</th>
+            <th style="width: 15%;">Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of docRows">
+            <td><input type="text" class="modern-input" placeholder="Document Title"></td>
+            <td>
+              <select class="modern-select">
+                <option>--Select Record Type--</option>
+              </select>
+            </td>
+            <td class="center">
+              <button class="d2e-icon-btn upload" title="Upload"><span class="material-symbols-outlined">cloud_upload</span></button>
+            </td>
+            <td class="center">
+              <button class="d2e-icon-btn save" title="Save"><span class="material-symbols-outlined">save</span></button>
+            </td>
+            <td>
+              <div class="remarks-text">Please enter the information and click on the save icon.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

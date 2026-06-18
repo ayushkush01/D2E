@@ -1,0 +1,741 @@
+// D2E Referral Dashboard Styles
+// Matches the Elena Rodriguez detailed clinical screen design
+
+.d2e-referral-page {
+  font-family: var(--d2e-font);
+  background: var(--d2e-surface);
+  color: var(--d2e-on-surface);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── Top Header ───────────────────────────────────────────────
+.d2e-ref-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 32px 16px;
+  background: white;
+  border-bottom: 1px solid var(--d2e-outline-variant);
+
+  &__left {
+    display: flex;
+    gap: 20px;
+  }
+  
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.d2e-ref-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.d2e-ref-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--d2e-on-surface);
+  }
+}
+
+.d2e-ref-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--d2e-on-surface);
+}
+
+// Tags
+.d2e-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.tag-high-priority {
+  background: #fbeaea;
+  color: #b3261e;
+}
+.tag-urgent {
+  background: #e8f0fe;
+  color: #0b57d0;
+}
+
+// Meta Data Row
+.d2e-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  strong {
+    color: var(--d2e-on-surface-variant);
+    font-weight: 600;
+  }
+
+  &--icon {
+    color: var(--d2e-on-surface-variant);
+    .icon {
+      font-size: 16px;
+      color: var(--d2e-on-surface-variant);
+    }
+  }
+}
+.d2e-meta-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--d2e-outline-variant);
+}
+
+// Header Buttons
+.d2e-icon-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--d2e-outline-variant);
+  border-radius: 6px;
+  background: white;
+  color: var(--d2e-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--d2e-surface-container-low);
+    color: var(--d2e-on-surface);
+  }
+}
+.d2e-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--d2e-font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &--primary {
+    background: var(--d2e-primary);
+    color: white;
+
+    &:hover { background: var(--d2e-primary-container); color: var(--d2e-on-primary-container); }
+  }
+
+  &--outline {
+    background: white;
+    color: var(--d2e-on-surface);
+    border: 1px solid var(--d2e-outline-variant);
+
+    &:hover { background: var(--d2e-surface-container-low); color: var(--d2e-on-surface); }
+  }
+}
+
+
+// ─── Tabs Navigation ──────────────────────────────────────────
+.d2e-ref-tabs-container {
+  background: white;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--d2e-outline-variant);
+}
+.d2e-ref-tabs {
+  display: flex;
+  gap: 32px;
+}
+.d2e-ref-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 16px 0;
+  font-family: var(--d2e-font);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--d2e-on-surface-variant);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--d2e-on-surface);
+  }
+
+  &.active {
+    color: var(--d2e-primary);
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--d2e-primary);
+      border-radius: 3px 3px 0 0;
+    }
+  }
+}
+.d2e-tab-badge {
+  background: var(--d2e-error);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+
+// ─── Main Body Layout ─────────────────────────────────────────
+.d2e-ref-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  padding: 24px 32px;
+  background: var(--d2e-surface-container-lowest);
+  flex: 1;
+}
+.d2e-ref-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.d2e-ref-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Shared Card Styles
+.d2e-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid var(--d2e-outline-variant);
+  padding: 24px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--d2e-on-surface);
+  }
+
+  &__meta {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--d2e-on-surface-variant);
+  }
+}
+
+
+// ─── Complete Clinical Profile Card ───────────────────────────
+.d2e-clinical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+.d2e-clinical-heading {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--d2e-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 16px 0;
+  border-bottom: 1px solid var(--d2e-outline-variant);
+  padding-bottom: 8px;
+}
+
+.d2e-data-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.d2e-data-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--d2e-on-surface-variant);
+
+  &--caps {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+.d2e-data-value {
+  font-size: 14px;
+  color: var(--d2e-on-surface);
+
+  &--bold {
+    font-weight: 600;
+  }
+}
+
+// Vitals Grid (2x2 gray boxes)
+.d2e-vitals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.d2e-vital-box {
+  background: var(--d2e-surface-container-low);
+  padding: 12px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.d2e-vital-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--d2e-on-surface-variant);
+}
+.d2e-vital-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--d2e-on-surface);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .d2e-trend-up {
+    color: var(--d2e-error);
+    font-size: 16px;
+    font-weight: 900;
+  }
+}
+
+.d2e-card-divider {
+  border: 0;
+  height: 1px;
+  background: var(--d2e-outline-variant);
+  margin: 24px 0;
+}
+
+.d2e-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  .d2e-data-group { margin: 0; }
+}
+
+
+// ─── Referral Milestones Card (Timeline) ──────────────────────
+.d2e-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.d2e-timeline-item {
+  display: flex;
+  gap: 16px;
+
+  // Last item has no connecting line
+  &:last-child .d2e-timeline-line { display: none; }
+}
+
+.d2e-timeline-icon-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+}
+
+.d2e-timeline-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 2;
+
+  span { font-size: 14px; font-weight: bold; }
+}
+
+.d2e-timeline-line {
+  width: 2px;
+  background: var(--d2e-outline-variant);
+  flex: 1;
+  margin: 8px 0;
+}
+
+.d2e-timeline-content {
+  flex: 1;
+  padding-bottom: 32px;
+}
+
+.d2e-timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.d2e-timeline-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--d2e-on-surface);
+}
+.d2e-timeline-time {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--d2e-on-surface-variant);
+}
+.d2e-timeline-desc {
+  margin: 0;
+  font-size: 14px;
+  color: var(--d2e-on-surface-variant);
+  line-height: 1.4;
+}
+
+// Status Modifiers for Timeline
+.status-complete {
+  .d2e-timeline-icon { background: var(--d2e-primary); color: white; }
+  .d2e-timeline-line { background: var(--d2e-primary); }
+}
+.status-active {
+  .d2e-timeline-icon { background: var(--d2e-primary); color: white; }
+  .d2e-timeline-title { color: var(--d2e-primary); }
+}
+.status-pending {
+  .d2e-timeline-icon { background: var(--d2e-surface-container-high); color: var(--d2e-on-surface-variant); }
+  .d2e-timeline-title { color: var(--d2e-on-surface-variant); }
+}
+
+
+// ─── Right Sidebar Cards ──────────────────────────────────────
+.d2e-subnav-card {
+  background: var(--d2e-surface-container-low);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 16px 0;
+}
+.d2e-subnav-heading {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--d2e-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 16px 12px;
+  margin: 0;
+}
+
+.d2e-subnav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  color: var(--d2e-on-surface-variant);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+
+  .d2e-subnav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .icon { font-size: 20px; }
+  .chevron { font-size: 18px; opacity: 0; transform: translateX(-4px); transition: all 0.2s; }
+
+  &:hover {
+    background: var(--d2e-surface-container);
+    color: var(--d2e-on-surface);
+    .chevron { opacity: 0.5; transform: translateX(0); }
+  }
+
+  &.active {
+    background: white;
+    border-left-color: var(--d2e-primary);
+    color: var(--d2e-primary);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    .chevron { opacity: 1; transform: translateX(0); }
+  }
+}
+
+// Clinical Alerts
+.d2e-alerts-card {
+  background: #fdf2f2;
+  border: 1px solid #fecdd3;
+  border-radius: 12px;
+  padding: 20px;
+}
+.d2e-alerts-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--d2e-error);
+  margin-bottom: 16px;
+
+  .icon { font-size: 20px; }
+  .title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+.d2e-alerts-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  li {
+    font-size: 13px;
+    color: #9f1239;
+    line-height: 1.4;
+    position: relative;
+    padding-left: 16px;
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--d2e-error);
+      font-weight: bold;
+    }
+  }
+}
+
+/* Form Controls */
+.modern-select {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 14px;
+  outline: none;
+  appearance: none;
+}
+
+.modern-btn {
+  padding: 12px 24px;
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+  transition: all 0.2s;
+}
+
+.modern-btn:hover {
+  background: #0284c7;
+}
+
+.modern-btn.secondary {
+  background: white;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.modern-btn.secondary:hover {
+  background: #f8fafc;
+}
+
+.modern-btn.disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Top Bar Options */
+.view-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.view-top-bar .left-actions,
+.view-top-bar .right-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.modern-input {
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  outline: none;
+  min-width: 250px;
+}
+
+.modern-input:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+/* Document Grid */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.doc-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.doc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+}
+
+.doc-card-add {
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  color: #64748b;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.doc-card-add:hover {
+  border-color: #0ea5e9;
+  color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.02);
+}
+
+.doc-card-add mat-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+}
+
+.doc-card .actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.doc-card:hover .actions {
+  opacity: 1;
+}
+
+.doc-card .actions mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.doc-card .actions mat-icon:hover {
+  color: #0ea5e9;
+}
+
+.doc-card .actions mat-icon.delete:hover {
+  color: #ef4444;
+}
+
+.doc-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: #3b82f6;
+  margin-bottom: 16px;
+}
+
+/* Notes Area */
+.note-input-area {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.02);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.ai-overview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 16px;
+  background: #f0f9ff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+}
+
+.ai-overview mat-icon {
+  color: #3b82f6;
+}
+
+.badge-tag {
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}

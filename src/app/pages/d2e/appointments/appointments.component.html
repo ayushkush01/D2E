@@ -1,0 +1,155 @@
+<div class="d2e-grid-page">
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Appointments</h1>
+      <p class="d2e-subtitle">Manage patient appointments and schedules.</p>
+    </div>
+  </div>
+
+  <div class="toolbar-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+    <div class="d2e-view-toggle">
+      <button class="d2e-view-toggle__btn" [class.active]="viewMode === 'grid'" (click)="setView('grid')">
+        <span class="material-symbols-outlined">list</span> Grid View
+      </button>
+      <button class="d2e-view-toggle__btn" [class.active]="viewMode === 'calendar'" (click)="setView('calendar')">
+        <span class="material-symbols-outlined">calendar_month</span> Calendar View
+      </button>
+    </div>
+
+    @if (viewMode === 'grid') {
+      <div class="table-toolbar" style="display: flex; gap: 8px; align-items: center;">
+        <div class="d2e-search-box" style="width: 240px; position: relative;">
+          <input type="text" class="modern-input" placeholder="Search by Keyword" style="width: 100%; padding-right: 32px;">
+          <span class="material-symbols-outlined" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 18px;">search</span>
+        </div>
+        <button class="d2e-btn d2e-btn--outline" style="padding: 10px;" title="Refresh">
+          <span class="material-symbols-outlined" style="font-size: 18px; margin: 0;">refresh</span>
+        </button>
+        <button class="d2e-btn d2e-btn--outline" style="padding: 10px;" title="Download">
+          <span class="material-symbols-outlined" style="font-size: 18px; margin: 0;">download</span>
+        </button>
+      </div>
+    }
+
+    @if (viewMode === 'calendar') {
+      <div class="calendar-toolbar" style="display: flex; gap: 12px; align-items: center; flex: 1; justify-content: flex-end; flex-wrap: wrap;">
+        <select class="modern-select" style="width: 160px; height: 38px;">
+          <option>Select Provider</option>
+        </select>
+        <select class="modern-select" style="width: 160px; height: 38px;">
+          <option>Select Hospital</option>
+        </select>
+        
+        <div style="position: relative; width: 140px;">
+          <input type="text" class="modern-input" value="Week 25, 2026" style="height: 38px; padding-right: 32px;" readonly>
+          <span class="material-symbols-outlined" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 18px;">calendar_today</span>
+        </div>
+
+        <button class="d2e-icon-btn toolbar-btn" style="color: var(--d2e-primary); width: 38px; padding: 0; border: 1px solid var(--d2e-outline-variant); border-radius: 6px;"><span class="material-symbols-outlined" style="font-size: 20px;">search</span></button>
+        <button class="d2e-icon-btn toolbar-btn" style="width: 38px; padding: 0; border: 1px solid var(--d2e-outline-variant); border-radius: 6px;"><span class="material-symbols-outlined" style="font-size: 20px;">refresh</span></button>
+
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--d2e-on-surface-variant); cursor: pointer; margin: 0 8px;">
+          <div class="d2e-toggle-switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </div>
+          Show Weekend
+        </label>
+
+        <div style="display: flex; gap: 4px;">
+          <button class="d2e-btn d2e-btn--primary toolbar-btn" style="padding: 0 14px; font-size: 12px; font-weight: 600;">MEGA</button>
+          <button class="d2e-btn d2e-btn--outline toolbar-btn" style="padding: 0 14px; font-size: 12px; font-weight: 600;">MINI</button>
+          <button class="d2e-btn d2e-btn--outline toolbar-btn" style="padding: 0 14px; font-size: 12px; font-weight: 600;">MICRO</button>
+        </div>
+      </div>
+    }
+  </div>
+  
+  @if (viewMode === 'grid') {
+    <div class="d2e-card d2e-card--full" style="background: white;">
+      <div class="d2e-card__header d2e-card__header--table">
+        <div class="d2e-card__title-group">
+          <h4 class="d2e-headline-md" style="margin: 0; font-size: 18px; font-weight: 600;">Appointments</h4>
+          <div class="d2e-chips">
+            <span class="d2e-chip d2e-chip--primary">{{ rows.length }} Total</span>
+          </div>
+        </div>
+        <div class="d2e-pagination">
+          <button class="d2e-page-btn" disabled>
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <span class="d2e-page-label">Page 1 of 1</span>
+          <button class="d2e-page-btn" disabled>
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="d2e-table-wrap">
+        <table class="d2e-table">
+          <thead>
+            <tr>
+              <th *ngFor="let col of columns">{{ col.name }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of rows">
+              <td>
+                 <div style="display: flex; gap: 4px; justify-content: center;">
+                   <button class="d2e-icon-btn edit" title="Edit"><span class="material-symbols-outlined">edit</span></button>
+                   <button class="d2e-icon-btn delete" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+                 </div>
+              </td>
+              <td>{{ row.appointmentId }}</td>
+              <td>{{ row.patientId }}</td>
+              <td>{{ row.provider }}</td>
+              <td>{{ row.patient }}</td>
+              <td>{{ row.hospital }}</td>
+              <td>{{ row.cptCode }}</td>
+              <td>{{ row.specialty }}</td>
+              <td>
+                <button class="d2e-icon-btn info" title="Procedure Info"><span class="material-symbols-outlined">info</span></button>
+              </td>
+              <td>{{ row.visitType }}</td>
+              <td>{{ row.date }}</td>
+              <td>{{ row.time }}</td>
+              <td>{{ row.phase }}</td>
+              <td>{{ row.stage }}</td>
+              <td>
+                <button class="d2e-icon-btn info" title="Remarks Info"><span class="material-symbols-outlined">info</span></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (viewMode === 'calendar') {
+    <div class="d2e-card d2e-card--full" style="background: white;">
+      <div class="calendar-nav" style="padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--d2e-outline-variant);">
+        <div style="display: flex; gap: 8px;">
+          <button class="d2e-btn d2e-btn--outline toolbar-btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" style="gap: 4px;">
+            <span class="material-symbols-outlined">chevron_left</span> <span>Previous</span>
+          </button>
+          <button class="d2e-btn d2e-btn--outline toolbar-btn" mwlCalendarToday [(viewDate)]="viewDate">
+            <span>Today</span>
+          </button>
+          <button class="d2e-btn d2e-btn--outline toolbar-btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" style="gap: 4px;">
+            <span>Next</span> <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+        <h3 class="d2e-headline-md" style="margin: 0;">{{ viewDate | date:'MMMM d, yyyy' }}</h3>
+      </div>
+      <div class="calendar-wrap" style="padding: 16px;">
+        <mwl-calendar-week-view 
+            [viewDate]="viewDate"
+            [events]="events"
+            [dayStartHour]="8"
+            [dayEndHour]="18">
+        </mwl-calendar-week-view>
+      </div>
+    </div>
+  }
+
+</div>

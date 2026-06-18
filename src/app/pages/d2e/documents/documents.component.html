@@ -1,0 +1,107 @@
+<div class="d2e-documents">
+  <!-- Page Header -->
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Documents</h1>
+      <p class="d2e-subtitle">Manage patient documents, forms, and clinical notes.</p>
+    </div>
+    <div class="d2e-page-header__right">
+      <button class="d2e-btn d2e-btn--primary">
+        <span class="material-symbols-outlined">upload</span> Upload Document
+      </button>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="d2e-toolbar">
+    <div class="d2e-tabs">
+      <button class="d2e-tab active">Referral Documents</button>
+      <button class="d2e-tab">Contract Documents</button>
+    </div>
+    <div class="d2e-toolbar__actions">
+      <div class="d2e-view-toggle">
+        <button class="d2e-view-toggle__btn" [class.active]="viewMode === 'card'" (click)="setView('card')">
+          <span class="material-symbols-outlined">grid_view</span>
+        </button>
+        <button class="d2e-view-toggle__btn" [class.active]="viewMode === 'list'" (click)="setView('list')">
+          <span class="material-symbols-outlined">list</span>
+        </button>
+      </div>
+      <button class="d2e-btn d2e-btn--outline">
+        <span class="material-symbols-outlined" style="font-size: 18px;">filter_list</span> Filter
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="d2e-content">
+    @if (viewMode === 'card') {
+      <div class="d2e-document-cards">
+        <!-- Add New Document Card -->
+        <div class="d2e-doc-card d2e-doc-card--add">
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+            <span class="material-symbols-outlined" style="font-size: 40px; margin-bottom: 12px; color: #94a3b8;">note_add</span>
+            <span style="font-weight: 600; font-size: 14px; color: #64748b;">Add Document Record</span>
+          </div>
+        </div>
+
+        @for (doc of documents; track doc.name) {
+          <div class="d2e-doc-card">
+            <div class="actions">
+              <span class="material-symbols-outlined">visibility</span>
+              <span class="material-symbols-outlined delete">delete</span>
+              <span class="material-symbols-outlined">edit</span>
+            </div>
+            <span class="material-symbols-outlined doc-icon" [ngStyle]="{'color': doc.icon === 'folder' ? '#3b82f6' : (doc.icon === 'description' ? '#10b981' : 'var(--d2e-primary)')}">{{ doc.icon }}</span>
+            <p class="patient-name">{{ doc.patient }}</p>
+            <p class="doc-title">{{ doc.name }}</p>
+            <p class="doc-subtitle">{{ doc.type || 'Clinical Document' }}</p>
+            <p class="doc-meta">{{ doc.admin || 'admin' }} | {{ doc.date }}</p>
+          </div>
+        }
+      </div>
+    }
+
+    @if (viewMode === 'list') {
+      <div class="d2e-card d2e-card--full">
+        <div class="d2e-card__header d2e-card__header--table">
+          <div class="d2e-card__title-group">
+            <h4 class="d2e-headline-md">Document Repository</h4>
+          </div>
+        </div>
+        <div class="d2e-table-wrap">
+          <table class="d2e-table d2e-table--striped">
+            <thead>
+              <tr>
+                <th>Document Name <span class="material-symbols-outlined sort-icon">south</span></th>
+                <th>Type</th>
+                <th>Patient</th>
+                <th>Date Uploaded</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (doc of documents; track doc.name) {
+                <tr class="d2e-table-row">
+                  <td class="d2e-document-name">
+                    <span class="material-symbols-outlined icon">{{ doc.icon }}</span>
+                    {{ doc.name }}
+                  </td>
+                  <td><span class="d2e-type-chip">{{ doc.type }}</span></td>
+                  <td>{{ doc.patient }}</td>
+                  <td class="muted">{{ doc.date }}</td>
+                  <td>
+                    <div class="d2e-actions">
+                      <button class="d2e-icon-btn"><span class="material-symbols-outlined">visibility</span></button>
+                      <button class="d2e-icon-btn"><span class="material-symbols-outlined">download</span></button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  </div>
+</div>

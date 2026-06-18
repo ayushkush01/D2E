@@ -1,0 +1,502 @@
+// D2E Activity Board — Shared D2E utilities are in d2e-shared.scss
+// All design tokens use CSS vars defined in styles.scss :root
+
+.d2e-activity-board {
+  font-family: var(--d2e-font);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--d2e-surface);
+  color: var(--d2e-on-surface);
+  overflow: hidden;
+}
+
+// ─── Page Header ──────────────────────────────────────────────
+.d2e-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px 32px 12px;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--d2e-surface-container-low);
+  border-bottom: 1px solid var(--d2e-outline-variant);
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.d2e-page-header__left {
+  .d2e-headline-lg {
+    margin: 0 0 4px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--d2e-on-surface);
+  }
+  .d2e-subtitle {
+    margin: 0;
+    color: var(--d2e-on-surface-variant);
+    font-size: 14px;
+  }
+}
+
+.d2e-headline-md {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+// ─── View Toggle ──────────────────────────────────────────────
+.d2e-view-toggle {
+  display: flex;
+  background: var(--d2e-surface-container-high);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--d2e-on-surface-variant);
+    background: transparent;
+    transition: all 0.15s;
+
+    .material-symbols-outlined { font-size: 18px; }
+
+    &.active {
+      background: var(--d2e-surface-container-lowest);
+      color: var(--d2e-primary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+  }
+}
+
+// ─── Checkbox ─────────────────────────────────────────────────
+.d2e-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--d2e-on-surface-variant);
+  cursor: pointer;
+}
+.d2e-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--d2e-primary);
+  cursor: pointer;
+}
+
+// ─── Toolbar (tabs + search) ──────────────────────────────────
+.d2e-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 32px;
+  background: white;
+  border-bottom: 1px solid var(--d2e-outline-variant);
+  flex-wrap: wrap;
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
+// Sleek Pill Tabs
+.d2e-chevron-tabs {
+  display: flex;
+  background: var(--d2e-surface-container-low);
+  padding: 4px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.d2e-chevron-tab {
+  height: 36px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--d2e-on-surface-variant);
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    color: var(--d2e-on-surface);
+    background: var(--d2e-surface-variant);
+  }
+
+  &.active {
+    background: white;
+    color: var(--d2e-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+}
+
+// ─── Search Box ───────────────────────────────────────────────
+.d2e-search-box {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+
+  &__icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--d2e-on-surface-variant);
+    font-size: 20px;
+    pointer-events: none;
+  }
+  &__input {
+    width: 100%;
+    padding: 10px 40px 10px 16px;
+    border: 1px solid var(--d2e-outline-variant);
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: var(--d2e-font);
+    background: var(--d2e-surface-container-lowest);
+    color: var(--d2e-on-surface);
+    outline: none;
+    transition: all 0.2s;
+
+    &:focus {
+      border-color: var(--d2e-primary);
+      box-shadow: 0 0 0 3px rgba(0,60,144,0.08);
+    }
+  }
+}
+
+// ─── Buttons ──────────────────────────────────────────────────
+.d2e-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--d2e-font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 20px;
+  padding: 10px 24px;
+  transition: all 0.2s;
+
+  &--primary {
+    background: var(--d2e-primary);
+    color: white;
+    &:hover { background: var(--d2e-primary-container); color: var(--d2e-on-primary-container); }
+    &:active { transform: scale(0.97); }
+  }
+  &--outline {
+    background: transparent;
+    border: 1px solid var(--d2e-outline-variant);
+    color: var(--d2e-on-surface);
+    &:hover { background: var(--d2e-surface-container-low); }
+  }
+  &--ghost {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--d2e-on-surface-variant);
+    &:hover { background: var(--d2e-surface-variant); color: var(--d2e-on-surface); }
+  }
+  &--sm { padding: 8px 16px; font-size: 12px; }
+}
+
+// ─── Board Layout ─────────────────────────────────────────────
+.d2e-board-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+// ─── Kanban ───────────────────────────────────────────────────
+.d2e-kanban {
+  display: flex;
+  flex: 1;
+  gap: 24px;
+  padding: 24px 24px 24px 32px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--d2e-outline-variant) transparent;
+
+  &::-webkit-scrollbar { height: 6px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: var(--d2e-outline-variant); border-radius: 10px; }
+}
+
+.d2e-kanban-col {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--d2e-on-surface);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 200px;
+    overflow-y: auto;
+    padding-right: 4px;
+    padding-bottom: 24px;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+}
+
+.d2e-badge {
+  background: var(--d2e-surface-container-high);
+  color: var(--d2e-on-surface-variant);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.d2e-kanban-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 1px dashed var(--d2e-outline-variant);
+  border-radius: 16px;
+  text-align: center;
+  color: var(--d2e-on-surface-variant);
+  min-height: 120px;
+  background: var(--d2e-surface-container-lowest);
+
+  p { font-size: 13px; font-weight: 500; opacity: 0.7; margin: 0; }
+}
+
+// ─── Kanban Card ──────────────────────────────────────────────
+.d2e-kanban-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--d2e-outline-variant);
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  cursor: grab;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+    border-color: var(--d2e-outline);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: transparent;
+  }
+  &--priority-high::before { background: var(--d2e-error); }
+  &--priority-medium::before { background: #eab308; } // Yellow
+  &--priority-low::before { background: #22c55e; } // Green
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--d2e-on-surface);
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+}
+
+.d2e-flag-icon {
+  font-size: 18px;
+  font-variation-settings: 'FILL' 1;
+  
+  &--high { color: var(--d2e-error); }
+  &--medium { color: #eab308; }
+  &--low { color: #22c55e; }
+}
+
+.d2e-tag {
+  background: var(--d2e-surface-container-high);
+  color: var(--d2e-on-surface-variant);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.d2e-assignees {
+  display: flex;
+  margin-left: auto;
+}
+
+.d2e-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--d2e-primary-container);
+  color: var(--d2e-primary);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  margin-left: -6px;
+  cursor: default;
+  transition: transform 0.15s;
+
+  &:hover { transform: scale(1.1); z-index: 1; }
+}
+
+// ─── Icon Buttons ─────────────────────────────────────────────
+.d2e-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--d2e-on-surface-variant);
+  border-radius: 50%;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: var(--d2e-surface-container-high);
+    color: var(--d2e-on-surface);
+  }
+  .material-symbols-outlined { font-size: 20px; }
+}
+
+.d2e-icon-btn-sm {
+  @extend .d2e-icon-btn;
+  padding: 4px;
+  .material-symbols-outlined { font-size: 16px; }
+}
+
+// ─── Grid View Table ──────────────────────────────────────────
+.d2e-grid-view {
+  flex: 1;
+  padding: 24px 32px;
+  overflow: auto;
+  background: white;
+}
+
+.d2e-table-wrap {
+  border: 1px solid var(--d2e-outline-variant);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.d2e-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+  
+  th {
+    background: var(--d2e-surface-container-low);
+    padding: 16px;
+    font-weight: 600;
+    color: var(--d2e-on-surface-variant);
+    border-bottom: 1px solid var(--d2e-outline-variant);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+  
+  td {
+    padding: 16px;
+    border-bottom: 1px solid var(--d2e-outline-variant);
+    color: var(--d2e-on-surface);
+    vertical-align: middle;
+  }
+
+  &--striped tbody tr:nth-child(even) {
+    background-color: var(--d2e-surface-container-lowest);
+  }
+
+  tbody tr:hover {
+    background-color: var(--d2e-surface-variant);
+  }
+}
+
+// ─── CDK Drag & Drop ─────────────────────────────────────────
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  background: white;
+  border: 1px solid var(--d2e-outline-variant);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  border: 2px dashed var(--d2e-outline-variant);
+  background: transparent;
+  min-height: 100px;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.d2e-kanban-col__body.cdk-drop-list-dragging .d2e-kanban-card:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

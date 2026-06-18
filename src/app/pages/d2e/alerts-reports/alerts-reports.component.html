@@ -1,0 +1,156 @@
+<div class="d2e-alerts">
+
+  <!-- Page Header -->
+  <div class="d2e-page-header">
+    <div class="d2e-page-header__left">
+      <h1 class="d2e-headline-lg">Alerts & Reports</h1>
+      <p class="d2e-subtitle">Real-time inactivity tracking across patient phases.</p>
+    </div>
+    <div class="d2e-page-header__right">
+      <div class="d2e-search-box">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Search reports..." [(ngModel)]="searchQuery" />
+      </div>
+      <button class="d2e-btn d2e-btn--dark">
+        <span class="material-symbols-outlined">download</span> Download CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- Bento Grid -->
+  <div class="d2e-bento-grid">
+
+    <!-- Donut Chart Card -->
+    <div class="d2e-card d2e-card--chart">
+      <div class="d2e-card__header">
+        <h4 class="d2e-headline-md">Inactivity Distribution</h4>
+        <button class="d2e-icon-btn" title="Refresh">
+          <span class="material-symbols-outlined">refresh</span>
+        </button>
+      </div>
+      <div class="d2e-donut-wrap">
+        <div class="d2e-donut">
+          <div class="d2e-donut__hole">
+            <span class="d2e-donut__label" style="color: var(--d2e-on-surface);">35%</span>
+            <span class="d2e-donut__sublabel">3+ days</span>
+          </div>
+        </div>
+        <div class="d2e-donut-legend">
+          <div class="d2e-legend-item">
+            <span class="d2e-legend-dot" style="background:#1d59c1"></span>
+            <span>1 day: 15.0%</span>
+          </div>
+          <div class="d2e-legend-item">
+            <span class="d2e-legend-dot" style="background:#515f74"></span>
+            <span>2 days: 30.0%</span>
+          </div>
+          <div class="d2e-legend-item">
+            <span class="d2e-legend-dot" style="background:#6bd8cb"></span>
+            <span>3 days: 20.0%</span>
+          </div>
+          <div class="d2e-legend-item">
+            <span class="d2e-legend-dot" style="background:#ba1a1a"></span>
+            <span class="font-bold">3+ days: 35.0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase Matrix Table -->
+    <div class="d2e-card d2e-card--matrix">
+      <div class="d2e-card__header">
+        <h4 class="d2e-headline-md">Inactive/Phase Distribution</h4>
+        <span class="d2e-badge-pill">Updates every 15m</span>
+      </div>
+      <div class="d2e-table-wrap">
+        <table class="d2e-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th class="center">1 day</th>
+              <th class="center">2 days</th>
+              <th class="center">3 days</th>
+              <th class="center">3+ days</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of phaseRows; track row.phase) {
+              <tr>
+                <td class="bold">{{ row.phase }}</td>
+                <td class="center muted">{{ row.d1 }}</td>
+                <td class="center muted">{{ row.d2 }}</td>
+                <td class="center muted">{{ row.d3 }}</td>
+                <td class="center" [class.d2e-error]="row.d3plus > 0" [class.bold]="row.d3plus > 0">
+                  {{ row.d3plus }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Alerts Detail Table -->
+    <div class="d2e-card d2e-card--full">
+      <div class="d2e-card__header d2e-card__header--table">
+        <div class="d2e-card__title-group">
+          <h4 class="d2e-headline-md">Alerts Detail</h4>
+          <div class="d2e-chips">
+            <span class="d2e-chip d2e-chip--primary">{{ activeCount }} Active</span>
+            <span class="d2e-chip d2e-chip--neutral">{{ resolvedCount }} Resolved</span>
+          </div>
+        </div>
+        <div class="d2e-pagination">
+          <button class="d2e-page-btn" (click)="prevPage()" [disabled]="currentPage === 1">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <span class="d2e-page-label">Page {{ currentPage }} of {{ totalPages }}</span>
+          <button class="d2e-page-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+      <div class="d2e-table-wrap">
+        <table class="d2e-table d2e-table--striped">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Referral Date <span class="material-symbols-outlined sort-icon">south</span></th>
+              <th>Phase</th>
+              <th>Stage</th>
+              <th>Client</th>
+              <th>Patient Name</th>
+              <th>DOB</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (alert of alerts; track alert.patientName) {
+              <tr class="d2e-table-row">
+                <td>
+                  <span class="d2e-status-chip" [class.d2e-status-chip--active]="alert.status === 'Active'">
+                    {{ alert.status }}
+                  </span>
+                </td>
+                <td>{{ alert.referralDate }}</td>
+                <td>{{ alert.phase }}</td>
+                <td>{{ alert.stage }}</td>
+                <td>{{ alert.client }}</td>
+                <td class="d2e-patient-name">{{ alert.patientName }}</td>
+                <td class="muted">{{ alert.dob }}</td>
+                <td class="muted">{{ alert.phone }}</td>
+                <td class="muted truncate">{{ alert.email }}</td>
+                <td>
+                  <button class="d2e-link-btn">View</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
