@@ -27,7 +27,7 @@
     "angular-calendar": "0.32.0",
     "angular-in-memory-web-api": "0.21.0",
     "angular-draggable-droppable": "9.0.1",
-    "angular-resizable-element": "8.0.0" ,
+    "angular-resizable-element": "8.0.0",
     "date-fns": "4.1.0",
     "dragula": "3.7.3",
     "leaflet-map": "0.2.1",
@@ -40,7 +40,7 @@
     "roboto-fontface": "0.10.0",
     "rxjs": "7.8.2",
     "tslib": "2.8.1",
-    "zone.js": "0.16.0"
+    "zone.js": "~0.15.1"
   },
   "devDependencies": {
     "@angular/build": "^21.0.0",
